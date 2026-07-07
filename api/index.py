@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # 1. Import CORS
 import os
 from redis import Redis
 
 app = Flask(__name__)
+CORS(app)  # 2. Allow your HTML frontend to send requests to this API
 
 # Connect to Redis using an environment variable from Vercel dashboard
-# Example URL: rediss://default:password@your-redis-host:port
 redis_url = os.environ.get("REDIS_URL")
 db = Redis.from_url(redis_url, decode_responses=True) if redis_url else None
+
+# ... (Keep the rest of your ban/unban 
 
 # Rate limiting config
 MAX_ATTEMPTS = 3
